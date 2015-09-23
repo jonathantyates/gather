@@ -1,0 +1,15 @@
+snake-dot {
+  display: inline-block;
+  height: 1rem;
+  position: absolute;
+  width: 1rem;
+}
+
+snake-dot {
+  background-color: #4CAF50;
+}
+
+
+.snake-dot--head {
+  background-color: #1B5E20;
+}

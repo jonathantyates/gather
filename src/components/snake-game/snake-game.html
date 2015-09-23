@@ -1,0 +1,6 @@
+<snake-dot
+    ng-class="{'snake-dot--head': $index === 0}"
+    ng-style="{transform: 'translate3d(' + position.x + 'px,' + position.y + 'px, 0)'}"
+    ng-repeat='position in vm.snake.positions track by $index'
+    style="transition: all 250ms;">
+</snake-dot>

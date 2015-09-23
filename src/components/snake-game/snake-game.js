@@ -23,6 +23,10 @@ export class SnakeGame {
     this.snake = new Snake({x: 0, y: 0});
     this.$scope_ = $scope;
 
+    for (let i = 0; i < 25; i ++) {
+      this.snake.positions.unshift(this.snake.calculateNextPosition());
+    }
+
     this.updateGameState();
   }
 

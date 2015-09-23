@@ -1,0 +1,37 @@
+{
+  "name": "gather",
+  "version": "0.1.0",
+  "description": "Bringing your community to you.",
+  "main": "src/index.js",
+  "devDependencies": {
+    "babel": "^5.8.20",
+    "browser-sync": "^2.8.2",
+    "chai": "^3.2.0",
+    "mocha": "^2.2.5",
+    "node-sass": "^3.2.0",
+    "systemjs": "^0.18.5"
+  },
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "build": "babel-node scripts/publish.js",
+    "start": "babel-node scripts/build.js",
+    "test": "mocha --compilers js:babel/register"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://jonathantyates@github.com/jonathantyates/gather.git"
+  },
+  "author": "Jonathan Yates <github@jonathantyates.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonathantyates/gather/issues"
+  },
+  "homepage": "https://github.com/jonathantyates/gather#readme",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  }
+}

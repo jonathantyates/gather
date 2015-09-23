@@ -3,6 +3,13 @@
   "version": "0.1.0",
   "description": "Bringing your community to you.",
   "main": "src/index.js",
+  "dependencies": {
+    "angular": "^1.4.6",
+    "angular-animate": "^1.4.6",
+    "angular-aria": "^1.4.6",
+    "angular-material": "^0.11.0",
+    "angular-ui-router": "^0.2.15"
+  },
   "devDependencies": {
     "babel": "^5.8.20",
     "browser-sync": "^2.8.2",
@@ -29,9 +36,5 @@
   "bugs": {
     "url": "https://github.com/jonathantyates/gather/issues"
   },
-  "homepage": "https://github.com/jonathantyates/gather#readme",
-  "directories": {
-    "doc": "docs",
-    "test": "test"
-  }
+  "homepage": "https://github.com/jonathantyates/gather#readme"
 }

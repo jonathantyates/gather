@@ -23,9 +23,9 @@ export function bootstrap(appComponentType) {
  * The `@Component` annotation specifies when a component is instantiated, and which properties
  * and hostListeners it binds to.
  */
-export function Component({selector, properties}) {
+export function Component({host, properties, selector}) {
   return function Component(target) {
-    Reflect.set(target, 'componentConfig_', {selector, properties});
+    Reflect.set(target, 'componentConfig_', {host, selector, properties});
     Reflect.set(target, 'component_', _generateComponent(target));
   };
 }
@@ -55,45 +55,56 @@ export function View({directives = [], styleUrls = [], templateUrl = ''}) {
 
 
 function _generateComponent(target) {
-  const {selector, properties} = Reflect.get(target, 'componentConfig_');
+  const {host, selector, properties} = Reflect.get(target, 'componentConfig_');
   const {directives, templateUrl} = Reflect.get(target, 'viewConfig_');
 
   // Generate
   const normalizedName = _toCamelCase(target.name);
   const normalizedSelector = _toCamelCase(selector);
   const normalizedDependencies = directives.map(directive => Reflect.get(directive, 'component_'));
-  normalizedDependencies.unshift(angularUIRouter, 'ngMaterial');
 
   angular
     .module(normalizedName, normalizedDependencies)
-    .config(['$mdThemingProvider', '$stateProvider', ($mdThemingProvider, $stateProvider) => {
-      _generateThemes($mdThemingProvider);
-    }])
     .directive(normalizedSelector, () => ({
       bindToController: {},
       controller: target,
       controllerAs: 'vm',
+      link: _link,
       scope: {},
       templateUrl
     }));
+
+  function _link(scope, element, attributes, controller) {
+    let staticPropertyRegex = /^\w+$/;
+    let functionPropertyRegex = /^\(on(\w+)\)$/;
+    let eventHandlerRegex = /^(\w+)\(/;
+
+    for (let [key, value] of _enumerate(host)) {
+      if (staticPropertyRegex.test(key)) {
+        attributes.$set(key, value);
+      } else if (functionPropertyRegex.test(key)) {
+        let eventName = key.match(functionPropertyRegex)[1];
+        let eventHandler = value.match(eventHandlerRegex)[1];
+        element.on(eventName, controller[eventHandler].bind(controller));
+      }
+    }
+  }
 
   return normalizedName;
 }
 
 /**
- * Generates all of the themes that can be used with angular material.
- * @method _generateThemes
- * @param  {MDThemingProvider} $mdThemingProvider
+ * Generates an enumerate object.
+ * @method _enumerate
+ * @param  {object} object The object to enumerate.
+ * @return {[key: string, value: any]}
  */
-function _generateThemes($mdThemingProvider) {
-  $mdThemingProvider
-    .theme('default')
-    .primaryPalette('light-blue')
-    .accentPalette('red');
-
-  $mdThemingProvider
-    .theme('blue-grey')
-    .backgroundPalette('blue-grey');
+function* _enumerate(object) {
+  for (let key in object) {
+    if (object.hasOwnProperty(key)) {
+      yield [key, object[key]];
+    }
+  }
 }
 
 /**

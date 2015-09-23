@@ -1,4 +1,4 @@
 import {bootstrap} from 'angular/annotations';
-import {LaunchScreen} from 'components/launch-screen/launch-screen.js';
+import {SnakeGame} from 'components/snake-game/snake-game.js';
 
-bootstrap(LaunchScreen);
+bootstrap(SnakeGame);

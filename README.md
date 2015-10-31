@@ -14,4 +14,6 @@ The proposed structure of the application.
 
 ### gather-event-tile
 
+### gather-event-recommendation-card
+
 ## Services

@@ -9,12 +9,17 @@ The proposed structure of the application.
 ### gather-application
 
 ### gather-map
+```
+- events
+- on-event-click
+```
 
 ### gather-event-list
 
 ### gather-event-tile
 
 ### gather-event-recommendation-card
+
 
 ## Services
 

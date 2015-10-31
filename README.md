@@ -17,3 +17,5 @@ The proposed structure of the application.
 ### gather-event-recommendation-card
 
 ## Services
+
+### gather-events
